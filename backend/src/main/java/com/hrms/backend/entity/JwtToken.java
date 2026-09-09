@@ -19,6 +19,11 @@ public class JwtToken {
 
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
+    private boolean isLoggedOut = false;
+
+    // Getters and Setters
+    public boolean isLoggedOut() { return isLoggedOut; }
+    public void setLoggedOut(boolean loggedOut) { isLoggedOut = loggedOut; }
 
     // Getters and Setters
     public Integer getTokenId() { return tokenId; }

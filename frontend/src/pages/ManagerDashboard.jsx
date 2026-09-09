@@ -26,14 +26,14 @@ export default function ManagerDashboard() {
 
     const reviewTimesheet = async (id, status) => {
         try {
-            await axios.patch(`http://localhost:8080/api/timesheets/${id}/review`, { status });
+            await axios.patch(`${import.meta.env.VITE_API_URL}/api/timesheets/${id}/review`, { status });
             fetchData();
         } catch (e) { alert('Error reviewing timesheet: ' + (e.response?.data || e.message)); }
     };
 
     const reviewLeave = async (id, status) => {
         try {
-            await axios.patch(`http://localhost:8080/api/leave/requests/${id}/review`, { status });
+            await axios.patch(`${import.meta.env.VITE_API_URL}/api/leave/requests/${id}/review`, { status });
             fetchData();
         } catch (e) { alert('Error reviewing leave: ' + (e.response?.data || e.message)); }
     };

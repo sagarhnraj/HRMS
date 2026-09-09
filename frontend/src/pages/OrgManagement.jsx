@@ -90,7 +90,7 @@ export default function OrgManagement() {
     const initBalances = async () => {
         try {
             const currentYear = new Date().getFullYear();
-            const res = await axios.post(`http://localhost:8080/api/leave/balances/initialize?year=${currentYear}`);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/leave/balances/initialize?year=${currentYear}`);
             alert(res.data);
         } catch (e) { alert('Failed: ' + (e.response?.data || e.message)); }
     };

@@ -1,0 +1,1 @@
+ALTER TABLE jwt_tokens ADD COLUMN is_logged_out BOOLEAN DEFAULT FALSE;

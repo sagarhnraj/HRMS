@@ -59,7 +59,7 @@ export default function HrDashboard() {
 
     const fetchPayrolls = async (month) => {
         try {
-            const res = await axios.get(`http://localhost:8080/api/payroll/month?month=${month}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/payroll/month?month=${month}`);
             setPayrolls(res.data);
         } catch (e) { console.error('Error fetching payrolls', e); }
     };
@@ -75,7 +75,7 @@ export default function HrDashboard() {
 
     const loadSalary = async (empId) => {
         try {
-            const res = await axios.get(`http://localhost:8080/api/payroll/salary/${empId}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/payroll/salary/${empId}`);
             setSalaryForm(res.data);
             setSelectedEmployeeSalary(empId);
         } catch (e) {
@@ -87,7 +87,7 @@ export default function HrDashboard() {
     const saveSalary = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`http://localhost:8080/api/payroll/salary/${selectedEmployeeSalary}`, salaryForm);
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/payroll/salary/${selectedEmployeeSalary}`, salaryForm);
             alert("Salary structure updated");
             setSelectedEmployeeSalary(null);
         } catch (e) { alert("Failed: " + e.message); }
@@ -95,28 +95,28 @@ export default function HrDashboard() {
 
     const generatePayroll = async () => {
         try {
-            await axios.post(`http://localhost:8080/api/payroll/generate?month=${payrollMonth}`);
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/payroll/generate?month=${payrollMonth}`);
             fetchPayrolls(payrollMonth);
         } catch (e) { alert("Failed: " + e.message); }
     };
 
     const updatePayrollItem = async (id, field, value) => {
         try {
-            await axios.patch(`http://localhost:8080/api/payroll/${id}`, { [field]: parseFloat(value) || 0 });
+            await axios.patch(`${import.meta.env.VITE_API_URL}/api/payroll/${id}`, { [field]: parseFloat(value) || 0 });
             fetchPayrolls(payrollMonth);
         } catch (e) { alert("Failed: " + e.message); }
     };
 
     const processPayroll = async (id) => {
         try {
-            await axios.patch(`http://localhost:8080/api/payroll/${id}/process`);
+            await axios.patch(`${import.meta.env.VITE_API_URL}/api/payroll/${id}/process`);
             fetchPayrolls(payrollMonth);
         } catch (e) { alert("Failed: " + e.message); }
     };
 
     const payPayroll = async (id) => {
         try {
-            await axios.patch(`http://localhost:8080/api/payroll/${id}/pay`);
+            await axios.patch(`${import.meta.env.VITE_API_URL}/api/payroll/${id}/pay`);
             fetchPayrolls(payrollMonth);
         } catch (e) { alert("Failed: " + e.message); }
     };

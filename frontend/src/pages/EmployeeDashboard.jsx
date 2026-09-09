@@ -108,7 +108,7 @@ export default function EmployeeDashboard() {
 
     const cancelLeave = async (id) => {
         try {
-            await axios.patch(`http://localhost:8080/api/leave/requests/${id}/cancel`);
+            await axios.patch(`${import.meta.env.VITE_API_URL}/api/leave/requests/${id}/cancel`);
             fetchLeaveData();
         } catch (e) { alert('Failed: ' + (e.response?.data || e.message)); }
     }
@@ -276,7 +276,7 @@ export default function EmployeeDashboard() {
                                                 style={{padding:'0.25rem 0.5rem'}}
                                                 onClick={async () => {
                                                     try {
-                                                        const res = await axios.get(`http://localhost:8080/api/payroll/${ps.payrollId}/payslip`, { responseType: 'blob' });
+                                                        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/payroll/${ps.payrollId}/payslip`, { responseType: 'blob' });
                                                         const url = window.URL.createObjectURL(new Blob([res.data]));
                                                         const link = document.createElement('a');
                                                         link.href = url;
