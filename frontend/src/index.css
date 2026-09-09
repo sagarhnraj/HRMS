@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@600&display=swap');
+
+:root {
+  --color-bg: #F7F8FA;
+  --color-surface: #FFFFFF;
+  --color-ink: #1B2A4A;
+  --color-text: #2E3440;
+  --color-muted: #6B7280;
+  --color-accent: #2A9D8F;
+  --color-border: #E3E6EA;
+  --color-success: #3F9142;
+  --color-warning: #C98A2C;
+  --color-danger: #C1443C;
+
+  /* Role Accents */
+  --role-employee: #4C7EA8;
+  --role-manager: #2A9D8F;
+  --role-hr: #C98A2C;
+  --role-admin: #6B4C7A;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* Auth Container */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.auth-card {
+  background: var(--color-surface);
+  padding: 2.5rem;
+  border-radius: 2px;
+  border: 1px solid var(--color-border);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-title {
+  text-align: left;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none;
+  background-color: var(--color-surface);
+  transition: border-color 0.2s;
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: var(--color-accent);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-bg);
+}
+
+/* Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background-color: var(--color-ink);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-nav {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  padding: 0.75rem 1.5rem;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.nav-item:hover, .nav-item.active {
+  background-color: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.nav-item.active.role-employee { border-left: 3px solid var(--role-employee); }
+.nav-item.active.role-manager { border-left: 3px solid var(--role-manager); }
+.nav-item.active.role-hr { border-left: 3px solid var(--role-hr); }
+.nav-item.active.role-admin { border-left: 3px solid var(--role-admin); }
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.role-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: white;
+}
+.role-badge.employee { background-color: var(--role-employee); }
+.role-badge.manager { background-color: var(--role-manager); }
+.role-badge.hr { background-color: var(--role-hr); }
+.role-badge.admin { background-color: var(--role-admin); }
+
+.role-switcher {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dashboard-content {
+  padding: 2rem;
+}
+
+/* Dashboard Cards */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  background: var(--color-surface);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+}
+
+.kpi-card.role-employee { border-left: 3px solid var(--role-employee); }
+.kpi-card.role-manager { border-left: 3px solid var(--role-manager); }
+.kpi-card.role-hr { border-left: 3px solid var(--role-hr); }
+.kpi-card.role-admin { border-left: 3px solid var(--role-admin); }
+
+.kpi-title {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.kpi-value {
+  font-size: 1.5rem;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* Tables */
+.table-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  overflow: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.table th {
+  background-color: var(--color-bg);
+  padding: 1rem;
+  font-weight: 500;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+}
+
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #FAFAFB;
+}
+
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.status-active { background-color: #E8F4E9; color: var(--color-success); }
+.status-inactive { background-color: #FFF3E0; color: var(--color-warning); }
+.status-terminated { background-color: #FFEBEE; color: var(--color-danger); }

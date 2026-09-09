@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/hrms_db_p1?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: Hnsagar@2004
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    locations: classpath:db/migration/common,classpath:db/migration/dev
+
+jwt:
+  secret: averylongsecretkeywhichisatleast256bitslongforhs256signature
+
+cors:
+  allowed-origins: http://localhost:5173

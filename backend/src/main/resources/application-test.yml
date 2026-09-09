@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:hrms_test;DB_CLOSE_DELAY=-1;MODE=MySQL
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+  flyway:
+    locations: classpath:db/migration/common,classpath:db/migration/dev
+
+jwt:
+  secret: averylongsecretkeywhichisatleast256bitslongforhs256signaturetest
+
+cors:
+  allowed-origins: "*"
