@@ -36,6 +36,7 @@ public class PayrollController {
     @Autowired private AttendanceRecordRepository attendanceRepo;
     @Autowired private LeaveRequestRepository leaveRepo;
     @Autowired private UserRepository userRepo;
+    @Autowired private com.hrms.backend.service.NotificationService notificationService;
 
     private Employee getCurrentEmployee(Principal principal) {
         User user = userRepo.findByEmail(principal.getName()).orElseThrow();
@@ -69,7 +70,7 @@ public class PayrollController {
     @PostMapping("/generate")
     @PreAuthorize("hasAuthority('SALARY_MANAGE')")
     @Transactional
-    public ResponseEntity<?> generatePayroll(@RequestParam String month) {
+    public ResponseEntity<?> generatePayroll(@RequestParam String month, Principal principal) {
         // month is YYYY-MM
         LocalDate payrollMonth = LocalDate.parse(month + "-01");
         LocalDate monthEnd = payrollMonth.withDayOfMonth(payrollMonth.lengthOfMonth());
@@ -121,6 +122,12 @@ public class PayrollController {
             createdCount++;
         }
 
+        if (createdCount > 0 && principal != null) {
+            Employee hr = getCurrentEmployee(principal);
+            notificationService.notify(hr, "PAYROLL_GENERATED", "Payroll Ready",
+                "Payroll for " + month + " has been generated and is ready to review.", "PayrollRun", month);
+        }
+
         return ResponseEntity.ok("Generated " + createdCount + " payroll records for " + month);
     }
 
@@ -162,7 +169,12 @@ public class PayrollController {
         if (!"PROCESSED".equals(rec.getStatus())) return ResponseEntity.badRequest().body("Must be PROCESSED to pay");
         rec.setStatus("PAID");
         rec.setPaidAt(LocalDateTime.now());
-        return ResponseEntity.ok(payrollRepo.save(rec));
+        rec = payrollRepo.save(rec);
+
+        notificationService.notify(rec.getEmployee(), "PAYROLL_PAID", "Payslip Available",
+            "Your payslip for " + rec.getPayrollMonth().toString() + " is now available.", "PayrollRecord", rec.getPayrollId().toString());
+
+        return ResponseEntity.ok(rec);
     }
 
     // --- PAYSLIP ACCESS ---

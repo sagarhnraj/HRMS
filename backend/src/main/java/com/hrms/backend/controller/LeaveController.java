@@ -26,6 +26,8 @@ public class LeaveController {
     @Autowired private LeaveRequestRepository leaveRequestRepo;
     @Autowired private UserRepository userRepo;
     @Autowired private EmployeeRepository employeeRepo;
+    @Autowired private com.hrms.backend.service.AuditService auditService;
+    @Autowired private com.hrms.backend.service.NotificationService notificationService;
     @Autowired private AttendanceRecordRepository attendanceRepo;
 
     private Employee getCurrentEmployee(Principal principal) {
@@ -123,7 +125,12 @@ public class LeaveController {
             }
         }
 
-        return ResponseEntity.ok(leaveRequestRepo.save(req));
+        LeaveRequest savedReq = leaveRequestRepo.save(req);
+        if (emp.getManager() != null) {
+            notificationService.notify(emp.getManager(), "LEAVE_REQUEST", "New Leave Request",
+                emp.getFirstName() + " has requested leave.", "LeaveRequest", savedReq.getLeaveRequestId().toString());
+        }
+        return ResponseEntity.ok(savedReq);
     }
 
     @GetMapping("/requests/me")
@@ -185,7 +192,12 @@ public class LeaveController {
                 }
             }
         }
-        return ResponseEntity.ok(leaveRequestRepo.save(req));
+        LeaveRequest savedReq = leaveRequestRepo.save(req);
+        
+        notificationService.notify(savedReq.getEmployee(), "LEAVE_REVIEW", "Leave Request " + status,
+            "Your leave request has been " + status.toLowerCase(), "LeaveRequest", savedReq.getLeaveRequestId().toString());
+
+        return ResponseEntity.ok(savedReq);
     }
 
     @PatchMapping("/requests/{id}/cancel")

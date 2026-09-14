@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { formatINR } from '../utils/currency';
+import NotificationPreferences from '../components/NotificationPreferences';
 
 export default function EmployeeDashboard() {
     const { user } = useContext(AuthContext);
@@ -296,6 +297,10 @@ export default function EmployeeDashboard() {
                             </tbody>
                         </table>
                     </div>
+                </div>
+                
+                <div style={{ marginTop: '20px' }}>
+                    <NotificationPreferences />
                 </div>
 
             </div>

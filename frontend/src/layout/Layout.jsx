@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import NotificationBell from '../components/NotificationBell';
 
 export default function Layout() {
     const { user, activeRole, switchRole, logout } = useContext(AuthContext);
@@ -84,7 +85,8 @@ export default function Layout() {
                         {activeRole === 'HR' && 'HR Portal'}
                         {activeRole === 'ADMIN' && 'Admin Portal'}
                     </h1>
-                    <div className="user-controls">
+                    <div className="user-controls" style={{ display: 'flex', alignItems: 'center' }}>
+                        <NotificationBell />
                         {user.roles.length > 1 && (
                             <select 
                                 className="role-switcher" 
